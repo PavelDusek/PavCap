@@ -11,6 +11,17 @@ class Project(object):
         self.url = url
         self.secure = secure
 
+    def info( self ):
+        data = {
+                'token': self.token,
+                'content': 'project',
+                'format': 'json',
+                'returnFormat': 'json'
+        }
+        r = requests.post(url = self.url, data = data, verify= self.secure)
+        j = json.loads(r.text)
+        return j
+
     def listFields( self ):
         data = {
             'token': self.token,
