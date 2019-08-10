@@ -71,18 +71,19 @@ class Project(object):
         j = json.loads(r.text)
         return j
 
-    def upload( self, json_data ):
+    def upload( self, upload_data, behavior = 'normal' ):
+        if not isinstance( upload_data, list):
+            upload_data = [ upload_data ]
         data = {
             'token': self.token,
             'content': 'record',
             'format': 'json',
             'type': 'flat',
-            'overwriteBehavior': 'normal', #'overwrite',
+            'overwriteBehavior': behavior,
             'forceAutoNumber': 'false',
-            'data': json_data,
+            'data': json.dumps( upload_data ),
             'returnContent': 'count',
             'returnFormat': 'json',
-            'record_id': 1, #hashlib.sha1().hexdigest()[:16]
         }
         r = requests.post( url = self.url, data = data, verify = self.secure )
         return r.text
