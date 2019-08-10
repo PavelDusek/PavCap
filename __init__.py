@@ -84,7 +84,7 @@ class Project(object):
             'returnFormat': 'json',
             'record_id': 1, #hashlib.sha1().hexdigest()[:16]
         }
-        r = requests.post( url = url, data = data, verify = self.secure )
+        r = requests.post( url = self.url, data = data, verify = self.secure )
         return r.text
 
 __doc__ = """
